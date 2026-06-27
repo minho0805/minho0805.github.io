@@ -1,0 +1,59 @@
+---
+layout: default
+---
+
+<div id="progress-bar"></div>
+
+<article class="post-article">
+  <div class="container-narrow">
+    <header class="post-header fade-in">
+      {% assign words = content | number_of_words %}
+      {% assign rt = words | divided_by: 200 | plus: 1 %}
+      <div class="post-meta-top">
+        <time datetime="{{ page.date | date_to_xmlschema }}">
+          <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          {{ page.date | date: "%Y년 %m월 %d일" }}
+        </time>
+        <span class="reading-time">· {{ rt }}분 읽기</span>
+        {% if page.tags.size > 0 %}
+        <div class="post-tags">
+          {% for tag in page.tags %}
+          <span class="tag" data-tag="{{ tag }}">{{ tag }}</span>
+          {% endfor %}
+        </div>
+        {% endif %}
+      </div>
+      <h1 class="post-title">{{ page.title }}</h1>
+      {% if page.description %}
+      <p class="post-description">{{ page.description }}</p>
+      {% endif %}
+    </header>
+
+    <div class="post-divider"></div>
+
+    <div class="post-content fade-in">
+      {{ content }}
+    </div>
+
+    <div class="post-divider"></div>
+
+    <footer class="post-footer fade-in">
+      <a href="{{ '/' | relative_url }}" class="btn btn-ghost">← 목록으로</a>
+      <div class="post-nav">
+        {% if page.previous.url %}
+        <a href="{{ page.previous.url | relative_url }}" class="post-nav-item">
+          <span class="post-nav-label">← 이전 포스트</span>
+          <span class="post-nav-title">{{ page.previous.title }}</span>
+        </a>
+        {% else %}<div></div>{% endif %}
+
+        {% if page.next.url %}
+        <a href="{{ page.next.url | relative_url }}" class="post-nav-item post-nav-next">
+          <span class="post-nav-label">다음 포스트 →</span>
+          <span class="post-nav-title">{{ page.next.title }}</span>
+        </a>
+        {% else %}<div></div>{% endif %}
+      </div>
+    </footer>
+  </div>
+</article>
